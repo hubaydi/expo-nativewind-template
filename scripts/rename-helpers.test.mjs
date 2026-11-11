@@ -58,8 +58,20 @@ describe("validateBundleId", () => {
     assert.equal(validateBundleId("com.company.myapp"), true);
   });
 
-  it("accepts hyphens in segments", () => {
-    assert.equal(validateBundleId("com.my-company.app"), true);
+  it("accepts underscores in segments", () => {
+    assert.equal(validateBundleId("com.my_company.app"), true);
+  });
+  it("rejects hyphens", () => {
+    assert.equal(validateBundleId("com.my-company.app"), false);
+  });
+  it("rejects double dots", () => {
+    assert.equal(validateBundleId("com..app"), false);
+  });
+  it("rejects uppercase", () => {
+    assert.equal(validateBundleId("Com.MyApp"), false);
+  });
+  it("rejects digit-leading segment", () => {
+    assert.equal(validateBundleId("com.1app"), false);
   });
 
   it("rejects missing dot", () => {

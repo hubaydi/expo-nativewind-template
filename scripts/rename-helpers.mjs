@@ -17,8 +17,10 @@ export function validateName(name) {
   return name.trim().length > 0;
 }
 
+// Android applicationId forbids hyphens and digit-leading segments; iOS tolerates
+// more, but one prompt feeds both platforms, so take the intersection.
 export function validateBundleId(id) {
-  return /^[a-zA-Z0-9-]+\.[a-zA-Z0-9.-]+$/.test(id);
+  return /^[a-z][a-z0-9_]*(\.[a-z][a-z0-9_]*)+$/.test(id);
 }
 
 export function rewritePackageJson(content, slug) {
